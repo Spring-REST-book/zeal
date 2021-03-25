@@ -1,4 +1,6 @@
-<center><img src="docs/github/images/logo.png" alt="Zeal Publishing Software" style="zoom:80%;" /></center>
+<p align="center">
+  <img src="docs/github/images/logo.png" alt="Zeal Publishing Software" style="zoom:80%;" />
+</p>
 
 # What is Zeal?
 
