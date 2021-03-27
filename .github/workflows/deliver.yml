@@ -1,0 +1,30 @@
+name: Delivery Pipeline
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Build with Maven
+        run: mvn --batch-mode --update-snapshots clean package
+      - name: Stage Reports
+        run: |
+          mkdir -p output/reports/zeal-domain
+          cp -r zeal-domain/target/site/jacoco/ output/reports/zeal-domain
+      - name: Upload Distribution Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: zeal-domain/target/zeal-domain-*.jar
+      - name: Upload Reports
+        uses: actions/upload-artifact@v2
+        with:
+          name: reports
+          path: output/reports
