@@ -12,13 +12,15 @@ import java.time.LocalDateTime;
 public class Comment {
 
 	private String id;
+	private String articleId;
 	private LocalDateTime creationDate;
 	private String content;
 	
 	public Comment() {}
 
-	public Comment(String id, LocalDateTime creationDate, String content) {
+	public Comment(String id, String articleId, LocalDateTime creationDate, String content) {
 		this.id = id;
+		this.articleId = articleId;
 		this.creationDate = creationDate;
 		this.content = content;
 	}
@@ -29,6 +31,14 @@ public class Comment {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getArticleId() {
+		return articleId;
+	}
+
+	public void setArticleId(String articleId) {
+		this.articleId = articleId;
 	}
 
 	public LocalDateTime getCreationDate() {

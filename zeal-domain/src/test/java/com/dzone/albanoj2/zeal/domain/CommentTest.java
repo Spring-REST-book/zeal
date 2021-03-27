@@ -13,12 +13,14 @@ public class CommentTest {
 	public void givenValidData_whenConstruct_thenGettersReturnValueData() {
 		
 		String id = "12345";
+		String articleId = "09876";
 		LocalDateTime creationDate = date();
 		String content = "bar";
 		
-		Comment comment = new Comment(id, creationDate, content);
+		Comment comment = new Comment(id, articleId, creationDate, content);
 		
 		assertEquals(id, comment.getId());
+		assertEquals(articleId, comment.getArticleId());
 		assertEquals(creationDate, comment.getCreationDate());
 		assertEquals(content, comment.getContent());
 	}
@@ -31,16 +33,19 @@ public class CommentTest {
 	public void givenValidData_whenSet_thenGettersReturnValueData() {
 		
 		String id = "12345";
+		String articleId = "09876";
 		LocalDateTime creationDate = date();
 		String content = "bar";
 		
 		Comment comment = new Comment();
 		
 		comment.setId(id);
+		comment.setArticleId(articleId);
 		comment.setCreationDate(creationDate);
 		comment.setContent(content);
 		
 		assertEquals(id, comment.getId());
+		assertEquals(articleId, comment.getArticleId());
 		assertEquals(creationDate, comment.getCreationDate());
 		assertEquals(content, comment.getContent());
 	}

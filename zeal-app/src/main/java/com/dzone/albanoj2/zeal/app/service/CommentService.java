@@ -25,7 +25,7 @@ public interface CommentService {
 	 *         A list of the existing comments associated with the supplied
 	 *         article ID.
 	 */
-	public List<Comment> findAllByCommentId(String articleId);
+	public List<Comment> findAllByArticleId(String articleId);
 
 	/**
 	 * Finds the comment with the supplied ID if it exists.
