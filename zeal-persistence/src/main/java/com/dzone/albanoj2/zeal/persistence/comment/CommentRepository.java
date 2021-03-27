@@ -34,13 +34,13 @@ public interface CommentRepository {
 	 * 
 	 * @return
 	 *         An {@link Optional} populated with the comment matching the
-	 *         supplied ID if such an comment exists; an empty {@link Optional}
-	 *         if there does not exist an comment with the supplied ID.
+	 *         supplied ID if such a comment exists; an empty {@link Optional}
+	 *         if there does not exist a comment with the supplied ID.
 	 */
 	public Optional<Comment> findById(String id);
 
 	/**
-	 * Saves an comment. If the supplied comment has a populated ID, the save
+	 * Saves a comment. If the supplied comment has a populated ID, the save
 	 * operation is treated as an update. If the supplied comment does not have
 	 * a populated ID, the save operation is treated as a create.
 	 * 
