@@ -9,6 +9,7 @@
     <modules>
         <module>zeal-domain</module>
         <module>zeal-persistence</module>
+        <module>zeal-app</module>
     </modules>
 
     <properties>
