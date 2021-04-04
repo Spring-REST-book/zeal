@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +16,7 @@ public class CommentTest {
 		
 		String id = "12345";
 		String articleId = "09876";
-		LocalDateTime creationDate = date();
+		ZonedDateTime creationDate = date();
 		String content = "bar";
 		
 		Comment comment = new Comment(id, articleId, creationDate, content);
@@ -25,8 +27,9 @@ public class CommentTest {
 		assertEquals(content, comment.getContent());
 	}
 
-	private static LocalDateTime date() {
-		return LocalDateTime.of(2021, Month.MARCH, 26, 17, 41, 00);
+	private static ZonedDateTime date() {
+		return LocalDateTime.of(2021, Month.MARCH, 26, 17, 41, 00)
+		    .atZone(ZoneOffset.UTC);
 	}
 
 	@Test
@@ -34,7 +37,7 @@ public class CommentTest {
 		
 		String id = "12345";
 		String articleId = "09876";
-		LocalDateTime creationDate = date();
+		ZonedDateTime creationDate = date();
 		String content = "bar";
 		
 		Comment comment = new Comment();

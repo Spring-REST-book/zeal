@@ -1,6 +1,6 @@
 package com.dzone.albanoj2.zeal.domain;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 /**
  * A comment made by a user on an article.
@@ -13,12 +13,12 @@ public class Comment {
 
 	private String id;
 	private String articleId;
-	private LocalDateTime creationDate;
+	private ZonedDateTime creationDate;
 	private String content;
 	
 	public Comment() {}
 
-	public Comment(String id, String articleId, LocalDateTime creationDate, String content) {
+	public Comment(String id, String articleId, ZonedDateTime creationDate, String content) {
 		this.id = id;
 		this.articleId = articleId;
 		this.creationDate = creationDate;
@@ -41,12 +41,22 @@ public class Comment {
 		this.articleId = articleId;
 	}
 
-	public LocalDateTime getCreationDate() {
+	public ZonedDateTime getCreationDate() {
 		return creationDate;
 	}
 
-	public void setCreationDate(LocalDateTime creationDate) {
+	public void setCreationDate(ZonedDateTime creationDate) {
 		this.creationDate = creationDate;
+	}
+	
+	public long getCreationEpoch() {
+		
+		if (getCreationDate() == null) {
+			return 0;
+		}
+		else {
+			return getCreationDate().toInstant().toEpochMilli();
+		}
 	}
 
 	public String getContent() {

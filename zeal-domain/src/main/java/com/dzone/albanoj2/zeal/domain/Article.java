@@ -1,6 +1,6 @@
 package com.dzone.albanoj2.zeal.domain;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 /**
  * An article published by a user.
@@ -12,13 +12,13 @@ import java.time.LocalDateTime;
 public class Article {
 
 	private String id;
-	private LocalDateTime creationDate;
+	private ZonedDateTime creationDate;
 	private String title;
 	private String content;
 	
 	public Article() {}
 
-	public Article(String id, LocalDateTime creationDate, String title, String content) {
+	public Article(String id, ZonedDateTime creationDate, String title, String content) {
 		this.id = id;
 		this.creationDate = creationDate;
 		this.title = title;
@@ -33,12 +33,22 @@ public class Article {
 		this.id = id;
 	}
 
-	public LocalDateTime getCreationDate() {
+	public ZonedDateTime getCreationDate() {
 		return creationDate;
 	}
 
-	public void setCreationDate(LocalDateTime creationDate) {
+	public void setCreationDate(ZonedDateTime creationDate) {
 		this.creationDate = creationDate;
+	}
+
+	public long getCreationEpoch() {
+		
+		if (getCreationDate() == null) {
+			return 0;
+		}
+		else {
+			return getCreationDate().toInstant().toEpochMilli();
+		}
 	}
 
 	public String getTitle() {

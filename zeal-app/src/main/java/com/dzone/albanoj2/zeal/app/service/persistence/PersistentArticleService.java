@@ -3,6 +3,7 @@ package com.dzone.albanoj2.zeal.app.service.persistence;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.dzone.albanoj2.zeal.app.service.ArticleService;
 import com.dzone.albanoj2.zeal.app.service.error.ArticleNotFoundException;
@@ -16,6 +17,7 @@ import com.dzone.albanoj2.zeal.persistence.article.ArticleRepository;
  *
  * @since 1.0.0
  */
+@Service
 public class PersistentArticleService implements ArticleService {
 	
 	private final ArticleRepository repository;

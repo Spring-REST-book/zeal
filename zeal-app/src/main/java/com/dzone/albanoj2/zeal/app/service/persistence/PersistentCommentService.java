@@ -3,6 +3,7 @@ package com.dzone.albanoj2.zeal.app.service.persistence;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.dzone.albanoj2.zeal.app.service.CommentService;
 import com.dzone.albanoj2.zeal.app.service.error.ArticleNotFoundException;
@@ -18,6 +19,7 @@ import com.dzone.albanoj2.zeal.persistence.comment.CommentRepository;
  *
  * @since 1.0.0
  */
+@Service
 public class PersistentCommentService implements CommentService {
 	
 	private final ArticleRepository articleRepository;

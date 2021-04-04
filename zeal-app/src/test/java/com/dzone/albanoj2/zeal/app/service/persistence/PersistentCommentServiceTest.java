@@ -13,6 +13,8 @@ import static org.mockito.Mockito.verify;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -97,9 +99,10 @@ public class PersistentCommentServiceTest {
 	private static Comment comment(String id, String articleId) {
 		return new Comment(id, articleId, date(), "foo");
 	}
-	
-	private static LocalDateTime date() {
-		return LocalDateTime.of(2021, Month.MARCH, 26, 17, 41, 00);
+
+	private static ZonedDateTime date() {
+		return LocalDateTime.of(2021, Month.MARCH, 26, 17, 41, 00)
+		    .atZone(ZoneOffset.UTC);
 	}
 
 	private void givenCommentsForArticle(String articleId, Comment... comments) {

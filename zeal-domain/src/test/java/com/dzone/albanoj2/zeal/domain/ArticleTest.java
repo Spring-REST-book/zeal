@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +15,7 @@ public class ArticleTest {
 	public void givenValidData_whenConstruct_thenGettersReturnValueData() {
 		
 		String id = "12345";
-		LocalDateTime creationDate = date();
+		ZonedDateTime creationDate = date();
 		String title = "foo";
 		String content = "bar";
 		
@@ -25,15 +27,16 @@ public class ArticleTest {
 		assertEquals(content, article.getContent());
 	}
 
-	private static LocalDateTime date() {
-		return LocalDateTime.of(2021, Month.MARCH, 26, 17, 41, 00);
+	private static ZonedDateTime date() {
+		return LocalDateTime.of(2021, Month.MARCH, 26, 17, 41, 00)
+		    .atZone(ZoneOffset.UTC);
 	}
 
 	@Test
 	public void givenValidData_whenSet_thenGettersReturnValueData() {
 		
 		String id = "12345";
-		LocalDateTime creationDate = date();
+		ZonedDateTime creationDate = date();
 		String title = "foo";
 		String content = "bar";
 		
