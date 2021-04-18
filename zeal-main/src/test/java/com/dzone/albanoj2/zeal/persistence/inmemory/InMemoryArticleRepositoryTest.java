@@ -209,4 +209,24 @@ public class InMemoryArticleRepositoryTest {
 		
 		assertTrue(repository.exists(article.getId()));
 	}
+	
+	@Test
+	public void givenNoArticles_whenDeleteAll_thenNoArticlesRemain() {
+		
+		repository.deleteAll();
+		
+		assertTrue(repository.findAll().isEmpty());
+	}
+	
+	@Test
+	public void givenArticleExists_whenDeleteAll_thenNoArticlesRemain() {
+		
+		Article article = new Article(null, date(1), "foo", "bar");
+		
+		repository.save(article);
+		
+		repository.deleteAll();
+		
+		assertTrue(repository.findAll().isEmpty());
+	}
 }

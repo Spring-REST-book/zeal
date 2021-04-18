@@ -208,4 +208,25 @@ public class InMemoryCommentRepositoryTest {
 		
 		assertTrue(found.isEmpty());
 	}
+	
+	@Test
+	public void givenNoArticles_whenDeleteAll_thenNoArticlesRemain() {
+		
+		repository.deleteAll();
+		
+		assertTrue(repository.findAllByArticleId("foo").isEmpty());
+	}
+	
+	@Test
+	public void givenArticleExists_whenDeleteAll_thenNoArticlesRemain() {
+		
+		String articleId = "foo";
+		Comment comment = new Comment(null, articleId, date(1), "bar");
+		
+		repository.save(comment);
+		
+		repository.deleteAll();
+		
+		assertTrue(repository.findAllByArticleId(articleId).isEmpty());
+	}
 }

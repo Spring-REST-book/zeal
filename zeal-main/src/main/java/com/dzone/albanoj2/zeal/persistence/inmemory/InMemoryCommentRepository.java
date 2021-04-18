@@ -67,4 +67,8 @@ public class InMemoryCommentRepository implements CommentRepository {
 	public void deleteById(String id) {
 		comments.removeIf(matchesId(id));
 	}
+	
+	public void deleteAll() {
+		comments.clear();
+	}
 }

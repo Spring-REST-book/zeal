@@ -12,6 +12,10 @@
     <version>1.0.0</version>
     <packaging>pom</packaging>
 
+    <properties>
+        <cucumber.version>6.10.2</cucumber.version>
+    </properties>
+
     <modules>
         <module>zeal-domain</module>
         <module>zeal-persistence</module>
@@ -41,6 +45,24 @@
                 <groupId>com.dzone.albanoj2.zeal</groupId>
                 <artifactId>zeal-rest</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-java</artifactId>
+                <version>${cucumber.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-junit-platform-engine</artifactId>
+                <version>${cucumber.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-spring</artifactId>
+                <version>${cucumber.version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

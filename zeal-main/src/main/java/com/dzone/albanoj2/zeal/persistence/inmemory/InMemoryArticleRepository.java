@@ -70,4 +70,8 @@ public class InMemoryArticleRepository implements ArticleRepository {
 		return articles.stream()
 			.anyMatch(matchesId(id));
 	}
+	
+	public void deleteAll() {
+		articles.clear();
+	}
 }
