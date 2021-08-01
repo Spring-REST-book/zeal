@@ -14,8 +14,6 @@ jobs:
           java-version: 11
       - name: Build with Maven
         run: ./scripts/build.sh
-      - name: Containerize
-        run: ./scripts/containerize.sh
       - name: Stage Artifacts
         run: ./scripts/stage-artifacts.sh
       - name: Stage Reports
@@ -30,3 +28,20 @@ jobs:
         with:
           name: reports
           path: output/reports
+
+  containerize:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Download Distribution Artifacts
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+          path: dist/
+      - name: Stage Artifacts
+        run: |
+          mkdir -p zeal-main/target/
+          cp dist/zeal-main-*.jar zeal-main/target/
+      - name: Containerize
+        run: ./scripts/containerize.sh
