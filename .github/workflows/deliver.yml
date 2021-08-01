@@ -40,10 +40,10 @@ jobs:
         with:
           name: dist
           path: dist/
-      - name: Stage zeal-main
+      - name: Stage Artifacts
         run: |
           mkdir -p zeal-main/target/
-          cp dist/zeal-main-*.jar 
+          cp dist/zeal-main-*.jar zeal-main/target/
       - name: Log in to Docker Hub
         uses: docker/login-action@v1
         with:
