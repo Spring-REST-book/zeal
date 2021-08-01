@@ -28,3 +28,36 @@ jobs:
         with:
           name: reports
           path: output/reports
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download Distribution Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: dist
+          path: dist/
+      - name: Stage Artifacts
+        run: |
+          mkdir -p zeal-main/target/
+          cp dist/zeal-main-*.jar zeal-main/target/
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      - name: Extract Docker Metadata
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: albanoj2/zeal
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
