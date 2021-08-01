@@ -14,6 +14,8 @@ jobs:
           java-version: 11
       - name: Build with Maven
         run: ./scripts/build.sh
+      - name: Containerize
+        run: ./scripts/containerize.sh
       - name: Stage Artifacts
         run: ./scripts/stage-artifacts.sh
       - name: Stage Reports
