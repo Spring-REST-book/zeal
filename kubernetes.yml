@@ -16,10 +16,12 @@ spec:
     spec:
       containers:
       - name: zeal-web-service
-        image: zeal/main:latest
-        imagePullPolicy: IfNotPresent
+        image: albanoj2/zeal:main
+        imagePullPolicy: Always
         ports:
           - containerPort: 8080
+      imagePullSecrets:
+      - name: zeal-creds
 ---
 apiVersion: v1
 kind: Service
