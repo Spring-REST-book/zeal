@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 
 import org.junit.jupiter.api.Test;
 
@@ -37,21 +38,22 @@ public class CommentTest {
 	public void givenValidData_whenSet_thenGettersReturnValueData() {
 		
 		String id = "12345";
-		String articleId = "09876";
-		ZonedDateTime creationDate = date();
-		String content = "bar";
+		String updatedArticleId = "09876";
+		ZonedDateTime originalCreationDate = date();
+		ZonedDateTime updatedCreationDate = originalCreationDate.plus(1, ChronoUnit.MINUTES);
+		String updatedContent = "updated content";
 		
-		Comment comment = new Comment();
+		Comment comment = new Comment("55555", originalCreationDate, "foo");
 		
 		comment.setId(id);
-		comment.setArticleId(articleId);
-		comment.setCreationDate(creationDate);
-		comment.setContent(content);
+		comment.setArticleId(updatedArticleId);
+		comment.setCreationDate(updatedCreationDate);
+		comment.setContent(updatedContent);
 		
 		assertEquals(id, comment.getId());
-		assertEquals(articleId, comment.getArticleId());
-		assertEquals(creationDate, comment.getCreationDate());
-		assertEquals(content, comment.getContent());
+		assertEquals(updatedArticleId, comment.getArticleId());
+		assertEquals(updatedCreationDate, comment.getCreationDate());
+		assertEquals(updatedContent, comment.getContent());
 	}
 	
 	@Test
@@ -81,7 +83,7 @@ public class CommentTest {
 	@Test
 	public void givenNullArticleId_whenSetArticleId_thenExceptionThrown() {
 		
-		Comment comment = new Comment();
+		Comment comment = new Comment("55555", date(), "bar");
 		
 		assertThrows(
 			NullPointerException.class,
@@ -92,7 +94,7 @@ public class CommentTest {
 	@Test
 	public void givenNullCreationDate_whenSetCreationDate_thenExceptionThrown() {
 		
-		Comment comment = new Comment();
+		Comment comment = new Comment("55555", date(), "bar");
 		
 		assertThrows(
 			NullPointerException.class,
@@ -103,7 +105,7 @@ public class CommentTest {
 	@Test
 	public void givenNullContent_whenSetContent_thenExceptionThrown() {
 		
-		Comment comment = new Comment();
+		Comment comment = new Comment("55555", date(), "bar");
 		
 		assertThrows(
 			NullPointerException.class,

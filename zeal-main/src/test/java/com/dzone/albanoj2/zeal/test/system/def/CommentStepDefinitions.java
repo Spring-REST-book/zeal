@@ -108,17 +108,15 @@ public class CommentStepDefinitions {
 	}
 	
 	private static Comment convert(CommentResource resource) {
-	
-		Comment comment = new Comment();
 		
 		Instant instant = Instant.ofEpochMilli(resource.getCreationTimestamp());
 		
-		comment.setId(resource.getId());
-		comment.setArticleId(resource.getArticleId());
-		comment.setCreationDate(ZonedDateTime.ofInstant(instant, ZoneOffset.UTC));
-		comment.setContent(resource.getContent());
-		
-		return comment;
+		return new Comment(
+			resource.getId(),
+			resource.getArticleId(),
+			ZonedDateTime.ofInstant(instant, ZoneOffset.UTC),
+			resource.getContent()
+		);
 	}
 	
 	@When("^I post a comment with an article ID of \"(.+)\" and content of \"(.+)\"$")

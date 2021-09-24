@@ -28,14 +28,11 @@ public class CommentSaveRequestResourceMapper
 
 	@Override
 	public Comment to(CommentSaveRequestResource resource) {
-
-		Comment comment = new Comment();
-
-		comment.setArticleId(resource.getArticleId());
-		comment.setCreationDate(timeUtility.now());
-		comment.setContent(resource.getContent());
-
-		return comment;
+		return new Comment(
+			resource.getArticleId(),
+			timeUtility.now(),
+			resource.getContent()
+		);
 	}
 
 	@Override

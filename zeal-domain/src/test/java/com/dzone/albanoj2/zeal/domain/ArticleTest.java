@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 
 import org.junit.jupiter.api.Test;
 
@@ -37,21 +38,22 @@ public class ArticleTest {
 	public void givenValidData_whenSet_thenGettersReturnValueData() {
 		
 		String id = "12345";
-		ZonedDateTime creationDate = date();
-		String title = "foo";
-		String content = "bar";
-		
-		Article article = new Article();
+		ZonedDateTime originalCreationDate = date();
+		ZonedDateTime updatedCreationDate = originalCreationDate.plus(1, ChronoUnit.MINUTES);
+		String updatedTitle = "updated title";
+		String updatedContent = "updated content";
+
+		Article article = new Article(originalCreationDate, "foo", "bar");
 		
 		article.setId(id);
-		article.setCreationDate(creationDate);
-		article.setTitle(title);
-		article.setContent(content);
+		article.setCreationDate(updatedCreationDate);
+		article.setTitle(updatedTitle);
+		article.setContent(updatedContent);
 		
 		assertEquals(id, article.getId());
-		assertEquals(creationDate, article.getCreationDate());
-		assertEquals(title, article.getTitle());
-		assertEquals(content, article.getContent());
+		assertEquals(updatedCreationDate, article.getCreationDate());
+		assertEquals(updatedTitle, article.getTitle());
+		assertEquals(updatedContent, article.getContent());
 	}
 	
 	@Test
@@ -81,7 +83,7 @@ public class ArticleTest {
 	@Test
 	public void givenNullCreationDate_whenSetCreationDate_thenExceptionThrown() {
 		
-		Article article = new Article();
+		Article article = new Article(date(), "foo", "bar");
 		
 		assertThrows(
 			NullPointerException.class,
@@ -91,8 +93,8 @@ public class ArticleTest {
 	
 	@Test
 	public void givenNullTitle_whenSetTitle_thenExceptionThrown() {
-		
-		Article article = new Article();
+
+		Article article = new Article(date(), "foo", "bar");
 		
 		assertThrows(
 			NullPointerException.class,
@@ -102,8 +104,8 @@ public class ArticleTest {
 	
 	@Test
 	public void givenNullContent_whenSetContent_thenExceptionThrown() {
-		
-		Article article = new Article();
+
+		Article article = new Article(date(), "foo", "bar");
 		
 		assertThrows(
 			NullPointerException.class,

@@ -18,7 +18,9 @@ public class Article {
 	private String title;
 	private String content;
 	
-	public Article() {}
+	public Article(ZonedDateTime creationDate, String title, String content) {
+		this(null, creationDate, title, content);
+	}
 
 	public Article(String id, ZonedDateTime creationDate, String title, String content) {
 		this.id = id;

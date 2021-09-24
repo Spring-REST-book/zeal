@@ -18,7 +18,9 @@ public class Comment {
 	private ZonedDateTime creationDate;
 	private String content;
 	
-	public Comment() {}
+	public Comment(String articleId, ZonedDateTime creationDate, String content) {
+		this(null, articleId, creationDate, content);
+	}
 
 	public Comment(String id, String articleId, ZonedDateTime creationDate, String content) {
 		this.id = id;

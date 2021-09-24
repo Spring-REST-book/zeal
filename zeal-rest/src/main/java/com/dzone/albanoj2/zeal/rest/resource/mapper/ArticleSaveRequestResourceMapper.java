@@ -28,14 +28,11 @@ public class ArticleSaveRequestResourceMapper
 
 	@Override
 	public Article to(ArticleSaveRequestResource resource) {
-
-		Article article = new Article();
-
-		article.setCreationDate(timeUtility.now());
-		article.setTitle(resource.getTitle());
-		article.setContent(resource.getContent());
-
-		return article;
+		return new Article(
+			timeUtility.now(),
+			resource.getTitle(),
+			resource.getContent()
+		);
 	}
 
 	@Override

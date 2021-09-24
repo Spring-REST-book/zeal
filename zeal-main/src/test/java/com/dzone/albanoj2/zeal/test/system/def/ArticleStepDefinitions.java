@@ -77,15 +77,12 @@ public class ArticleStepDefinitions {
 	}
 	
 	private static Article convert(ArticleResource resource) {
-	
-		Article article = new Article();
-		
-		article.setId(resource.getId());
-		article.setCreationDate(creationDate(resource));
-		article.setTitle(resource.getTitle());
-		article.setContent(resource.getContent());
-		
-		return article;
+		return new Article(
+			resource.getId(),
+			creationDate(resource),
+			resource.getTitle(),
+			resource.getContent()
+		);
 	}
 	
 	private static ZonedDateTime creationDate(ArticleResource resource) {
