@@ -12,23 +12,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.context.request.WebRequest;
 
 import com.dzone.albanoj2.zeal.app.service.error.ArticleNotFoundException;
+import com.dzone.albanoj2.zeal.app.service.error.CommentNotFoundException;
 import com.dzone.albanoj2.zeal.rest.resource.ErrorResource;
 import com.dzone.albanoj2.zeal.rest.util.TimeUtility;
 
-public class ArticleExceptionHandlerTest {
+public class EntityExceptionHandlerTest {
 
 	private TimeUtility timeUtility;
-	private ArticleExceptionHandler handler;
+	private EntityExceptionHandler handler;
 	
 	@BeforeEach
 	public void setUp() {
 		
 		timeUtility = mock(TimeUtility.class);
-		handler = new ArticleExceptionHandler(timeUtility);
+		handler = new EntityExceptionHandler(timeUtility);
 	}
 	
 	@Test
-	public void givenValidException_whenHandleNotFound_thenCorrectResourceReturned() {
+	public void givenValidArticleNotFoundException_whenHandleNotFound_thenCorrectResourceReturned() {
 		
 		String id = "123";
 		String timestamp = "2021-04-01T19:40:26+0000";
@@ -52,5 +53,24 @@ public class ArticleExceptionHandlerTest {
 
 	private static void assertPopulated(String detail) {
 		assertTrue(detail != null && !detail.isBlank());
+	}
+
+	@Test
+	public void givenValidCommentNotFoundException_whenHandleNotFound_thenCorrectResourceReturned() {
+		
+		String id = "123";
+		String timestamp = "2021-04-01T19:40:26+0000";
+		CommentNotFoundException ex = new CommentNotFoundException(id);
+		WebRequest request = mock(WebRequest.class);
+		
+		givenCurrentTimestampIs(timestamp);
+		
+		ResponseEntity<ErrorResource> error = handler.handleNotFound(ex, request);
+		ErrorResource errorResource = error.getBody();
+		
+		assertEquals(HttpStatus.NOT_FOUND, error.getStatusCode());
+		assertEquals(timestamp, errorResource.getTimestamp());
+		assertPopulated(errorResource.getMessage());
+		assertPopulated(errorResource.getDetail());
 	}
 }

@@ -7,10 +7,9 @@ package com.dzone.albanoj2.zeal.app.service.error;
  *
  * @since 1.0.0
  */
-public class ArticleNotFoundException extends RuntimeException {
+public class ArticleNotFoundException extends EntityNotFoundException {
 
-	private static final long serialVersionUID = -9128144832142207496L;
-	private final String id;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Creates a new exception denoting an article with the supplied ID could
@@ -20,12 +19,7 @@ public class ArticleNotFoundException extends RuntimeException {
 	 *        The ID of the article that could not be found.
 	 */
 	public ArticleNotFoundException(String id) {
-		super(message(id));
-		this.id = id;
-	}
-
-	private static String message(String id) {
-		return "Article with ID " + id + " not found.";
+		super(id);
 	}
 
 	/**
@@ -38,11 +32,6 @@ public class ArticleNotFoundException extends RuntimeException {
 	 *        The cause of the exception.
 	 */
 	public ArticleNotFoundException(String id, Throwable cause) {
-		super(message(id), cause);
-		this.id = id;
-	}
-
-	public String getId() {
-		return id;
+		super(id, cause);
 	}
 }

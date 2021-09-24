@@ -7,10 +7,9 @@ package com.dzone.albanoj2.zeal.app.service.error;
  *
  * @since 1.0.0
  */
-public class CommentNotFoundException extends RuntimeException {
+public class CommentNotFoundException extends EntityNotFoundException {
 
-	private static final long serialVersionUID = -9128144832142207496L;
-	private final String id;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Creates a new exception denoting a comment with the supplied ID could not
@@ -20,12 +19,7 @@ public class CommentNotFoundException extends RuntimeException {
 	 *        The ID of the comment that could not be found.
 	 */
 	public CommentNotFoundException(String id) {
-		super(message(id));
-		this.id = id;
-	}
-
-	private static String message(String id) {
-		return "Comment with ID " + id + " not found.";
+		super(id);
 	}
 
 	/**
@@ -38,11 +32,6 @@ public class CommentNotFoundException extends RuntimeException {
 	 *        The cause of the exception.
 	 */
 	public CommentNotFoundException(String id, Throwable cause) {
-		super(message(id), cause);
-		this.id = id;
-	}
-
-	public String getId() {
-		return id;
+		super(id, cause);
 	}
 }
