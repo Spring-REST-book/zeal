@@ -1,5 +1,7 @@
 package com.dzone.albanoj2.zeal.domain;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.ZonedDateTime;
 
 /**
@@ -20,9 +22,21 @@ public class Article {
 
 	public Article(String id, ZonedDateTime creationDate, String title, String content) {
 		this.id = id;
-		this.creationDate = creationDate;
-		this.title = title;
-		this.content = content;
+		this.creationDate = requireValidCreationDate(creationDate);
+		this.title = requireValidTitle(title);
+		this.content = requireValidContent(content);
+	}
+
+	private static ZonedDateTime requireValidCreationDate(ZonedDateTime creationDate) {
+		return requireNonNull(creationDate, "Creation date cannot be null.");
+	}
+
+	private String requireValidTitle(String title) {
+		return requireNonNull(title, "Title cannot be null.");
+	}
+
+	private static String requireValidContent(String content) {
+		return requireNonNull(content, "Content cannot be null");
 	}
 
 	public String getId() {
@@ -38,6 +52,7 @@ public class Article {
 	}
 
 	public void setCreationDate(ZonedDateTime creationDate) {
+		requireValidCreationDate(creationDate);
 		this.creationDate = creationDate;
 	}
 
@@ -56,6 +71,7 @@ public class Article {
 	}
 
 	public void setTitle(String title) {
+		requireValidTitle(title);
 		this.title = title;
 	}
 
@@ -64,6 +80,7 @@ public class Article {
 	}
 
 	public void setContent(String content) {
+		requireValidContent(content);
 		this.content = content;
 	}
 }

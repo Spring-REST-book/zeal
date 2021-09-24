@@ -1,6 +1,7 @@
 package com.dzone.albanoj2.zeal.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -51,5 +52,62 @@ public class CommentTest {
 		assertEquals(articleId, comment.getArticleId());
 		assertEquals(creationDate, comment.getCreationDate());
 		assertEquals(content, comment.getContent());
+	}
+	
+	@Test
+	public void givenNullArticleId_whenConstruct_thenExceptionThrown() {
+		assertThrows(
+			NullPointerException.class,
+			() -> new Comment("12345", null, date(), "bar")
+		);
+	}
+	
+	@Test
+	public void givenNullCreationDate_whenConstruct_thenExceptionThrown() {
+		assertThrows(
+			NullPointerException.class,
+			() -> new Comment("12345", "foo", null, "bar")
+		);
+	}
+	
+	@Test
+	public void givenNullContent_whenConstruct_thenExceptionThrown() {
+		assertThrows(
+			NullPointerException.class,
+			() -> new Comment("12345", "foo", date(), null)
+		);
+	}
+	
+	@Test
+	public void givenNullArticleId_whenSetArticleId_thenExceptionThrown() {
+		
+		Comment comment = new Comment();
+		
+		assertThrows(
+			NullPointerException.class,
+			() -> comment.setArticleId(null)
+		);
+	}
+	
+	@Test
+	public void givenNullCreationDate_whenSetCreationDate_thenExceptionThrown() {
+		
+		Comment comment = new Comment();
+		
+		assertThrows(
+			NullPointerException.class,
+			() -> comment.setCreationDate(null)
+		);
+	}
+	
+	@Test
+	public void givenNullContent_whenSetContent_thenExceptionThrown() {
+		
+		Comment comment = new Comment();
+		
+		assertThrows(
+			NullPointerException.class,
+			() -> comment.setContent(null)
+		);
 	}
 }

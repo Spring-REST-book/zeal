@@ -1,6 +1,7 @@
 package com.dzone.albanoj2.zeal.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -51,5 +52,62 @@ public class ArticleTest {
 		assertEquals(creationDate, article.getCreationDate());
 		assertEquals(title, article.getTitle());
 		assertEquals(content, article.getContent());
+	}
+	
+	@Test
+	public void givenNullCreationDate_whenConstruct_thenExceptionThrown() {
+		assertThrows(
+			NullPointerException.class,
+			() -> new Article("12345", null, "foo", "bar")
+		);
+	}
+	
+	@Test
+	public void givenNullTitle_whenConstruct_thenExceptionThrown() {
+		assertThrows(
+			NullPointerException.class,
+			() -> new Article("12345", date(), null, "bar")
+		);
+	}
+	
+	@Test
+	public void givenNullContent_whenConstruct_thenExceptionThrown() {
+		assertThrows(
+			NullPointerException.class,
+			() -> new Article("12345", date(), "foo", null)
+		);
+	}
+	
+	@Test
+	public void givenNullCreationDate_whenSetCreationDate_thenExceptionThrown() {
+		
+		Article article = new Article();
+		
+		assertThrows(
+			NullPointerException.class,
+			() -> article.setCreationDate(null)
+		);
+	}
+	
+	@Test
+	public void givenNullTitle_whenSetTitle_thenExceptionThrown() {
+		
+		Article article = new Article();
+		
+		assertThrows(
+			NullPointerException.class,
+			() -> article.setTitle(null)
+		);
+	}
+	
+	@Test
+	public void givenNullContent_whenSetContent_thenExceptionThrown() {
+		
+		Article article = new Article();
+		
+		assertThrows(
+			NullPointerException.class,
+			() -> article.setContent(null)
+		);
 	}
 }
