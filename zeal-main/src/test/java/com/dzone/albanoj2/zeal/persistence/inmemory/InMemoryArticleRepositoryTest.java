@@ -80,9 +80,9 @@ public class InMemoryArticleRepositoryTest {
 		
 		Article article = new Article(null, date(1), "foo", "bar");
 		
-		repository.save(article);
+		Article saved = repository.save(article);
 
-		Optional<Article> found = repository.findById(article.getId());
+		Optional<Article> found = repository.findById(saved.getId());
 		
 		assertTrue(found.isPresent());
 		assertEquals(article, found.get());
@@ -93,9 +93,9 @@ public class InMemoryArticleRepositoryTest {
 
 		Article article = new Article(null, date(1), "foo", "bar");
 		
-		repository.save(article);
+		Article saved = repository.save(article);
 
-		Optional<Article> found = repository.findById(article.getId() + "foo");
+		Optional<Article> found = repository.findById(saved.getId() + "foo");
 		
 		assertTrue(found.isEmpty());
 	}
@@ -107,9 +107,9 @@ public class InMemoryArticleRepositoryTest {
 		Article matching = new Article(null, date(2), "baz", "something");
 		
 		repository.save(nonMatching);
-		repository.save(matching);
+		Article savedMatching = repository.save(matching);
 
-		Optional<Article> found = repository.findById(matching.getId());
+		Optional<Article> found = repository.findById(savedMatching.getId());
 		
 		assertTrue(found.isPresent());
 		assertEquals(matching, found.get());
@@ -120,9 +120,9 @@ public class InMemoryArticleRepositoryTest {
 		
 		Article article = new Article(null, date(1), "foo", "bar");
 		
-		repository.save(article);
+		Article saved = repository.save(article);
 
-		Optional<Article> found = repository.findById(article.getId());
+		Optional<Article> found = repository.findById(saved.getId());
 		
 		assertTrue(found.isPresent());
 		assertArticleMatches(article, found);
@@ -143,9 +143,9 @@ public class InMemoryArticleRepositoryTest {
 		
 		Article article = new Article("someId", date(1), "foo", "bar");
 		
-		repository.save(article);
+		Article saved = repository.save(article);
 
-		Optional<Article> found = repository.findById(article.getId());
+		Optional<Article> found = repository.findById(saved.getId());
 		
 		assertTrue(found.isPresent());
 		assertArticleMatches(article, found);
@@ -157,10 +157,10 @@ public class InMemoryArticleRepositoryTest {
 		Article existing = new Article("someId", date(1), "foo", "bar");
 		Article update = new Article(existing.getId(), date(2), "foo", "bar");
 		
-		repository.save(existing);
+		Article savedExisting = repository.save(existing);
 		repository.save(update);
 
-		Optional<Article> found = repository.findById(existing.getId());
+		Optional<Article> found = repository.findById(savedExisting.getId());
 		
 		assertTrue(found.isPresent());
 		assertArticleMatches(update, found);
@@ -183,11 +183,11 @@ public class InMemoryArticleRepositoryTest {
 		
 		Article article = new Article(null, date(1), "foo", "bar");
 		
-		repository.save(article);
+		Article saved = repository.save(article);
 		
-		repository.deleteById(article.getId());
+		repository.deleteById(saved.getId());
 		
-		Optional<Article> found = repository.findById(article.getId());
+		Optional<Article> found = repository.findById(saved.getId());
 		
 		assertTrue(found.isEmpty());
 	}
@@ -205,9 +205,9 @@ public class InMemoryArticleRepositoryTest {
 		
 		Article article = new Article(null, date(1), "foo", "bar");
 		
-		repository.save(article);
+		Article saved = repository.save(article);
 		
-		assertTrue(repository.exists(article.getId()));
+		assertTrue(repository.exists(saved.getId()));
 	}
 	
 	@Test

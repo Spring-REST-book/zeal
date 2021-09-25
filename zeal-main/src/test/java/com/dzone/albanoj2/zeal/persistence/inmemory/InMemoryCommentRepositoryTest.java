@@ -39,9 +39,9 @@ public class InMemoryCommentRepositoryTest {
 		
 		Comment comment = new Comment(null, "foo", date(1), "bar");
 		
-		repository.save(comment);
+		Comment saved = repository.save(comment);
 		
-		List<Comment> found = repository.findAllByArticleId(comment.getArticleId());
+		List<Comment> found = repository.findAllByArticleId(saved.getArticleId());
 		
 		assertEquals(1, found.size());
 		assertTrue(found.contains(comment));
@@ -76,9 +76,9 @@ public class InMemoryCommentRepositoryTest {
 		Comment nonMatching = new Comment(null, "foo", date(1), "bar");
 
 		repository.save(nonMatching);
-		repository.save(matching);
+		Comment savedMatching = repository.save(matching);
 		
-		List<Comment> found = repository.findAllByArticleId(matching.getArticleId());
+		List<Comment> found = repository.findAllByArticleId(savedMatching.getArticleId());
 		
 		assertEquals(1, found.size());
 		assertTrue(found.contains(matching));
@@ -97,9 +97,9 @@ public class InMemoryCommentRepositoryTest {
 		
 		Comment comment = new Comment(null, "foo", date(1), "bar");
 		
-		repository.save(comment);
+		Comment saved = repository.save(comment);
 
-		Optional<Comment> found = repository.findById(comment.getId());
+		Optional<Comment> found = repository.findById(saved.getId());
 		
 		assertTrue(found.isPresent());
 		assertEquals(comment, found.get());
@@ -110,9 +110,9 @@ public class InMemoryCommentRepositoryTest {
 
 		Comment comment = new Comment(null, "foo", date(1), "bar");
 		
-		repository.save(comment);
+		Comment saved = repository.save(comment);
 
-		Optional<Comment> found = repository.findById(comment.getId() + "foo");
+		Optional<Comment> found = repository.findById(saved.getId() + "foo");
 		
 		assertTrue(found.isEmpty());
 	}
@@ -124,9 +124,9 @@ public class InMemoryCommentRepositoryTest {
 		Comment matching = new Comment(null, "baz", date(2), "something");
 		
 		repository.save(nonMatching);
-		repository.save(matching);
+		Comment savedMatching = repository.save(matching);
 
-		Optional<Comment> found = repository.findById(matching.getId());
+		Optional<Comment> found = repository.findById(savedMatching.getId());
 		
 		assertTrue(found.isPresent());
 		assertEquals(matching, found.get());
@@ -137,9 +137,9 @@ public class InMemoryCommentRepositoryTest {
 		
 		Comment comment = new Comment(null, "foo", date(1), "bar");
 		
-		repository.save(comment);
+		Comment saved = repository.save(comment);
 
-		Optional<Comment> found = repository.findById(comment.getId());
+		Optional<Comment> found = repository.findById(saved.getId());
 		
 		assertTrue(found.isPresent());
 		assertCommentMatches(comment, found);
@@ -160,9 +160,9 @@ public class InMemoryCommentRepositoryTest {
 		
 		Comment comment = new Comment(null, "foo", date(1), "bar");
 		
-		repository.save(comment);
+		Comment saved = repository.save(comment);
 
-		Optional<Comment> found = repository.findById(comment.getId());
+		Optional<Comment> found = repository.findById(saved.getId());
 		
 		assertTrue(found.isPresent());
 		assertCommentMatches(comment, found);
@@ -174,10 +174,10 @@ public class InMemoryCommentRepositoryTest {
 		Comment existing = new Comment("someId", "foo", date(1), "bar");
 		Comment update = new Comment(existing.getId(), "baz", date(2), "something");
 		
-		repository.save(existing);
+		Comment savedExisting = repository.save(existing);
 		repository.save(update);
 
-		Optional<Comment> found = repository.findById(existing.getId());
+		Optional<Comment> found = repository.findById(savedExisting.getId());
 		
 		assertTrue(found.isPresent());
 		assertCommentMatches(update, found);
@@ -200,11 +200,11 @@ public class InMemoryCommentRepositoryTest {
 		
 		Comment comment = new Comment(null, "foo", date(1), "bar");
 		
-		repository.save(comment);
+		Comment saved = repository.save(comment);
 		
 		repository.deleteById(comment.getId());
 		
-		Optional<Comment> found = repository.findById(comment.getId());
+		Optional<Comment> found = repository.findById(saved.getId());
 		
 		assertTrue(found.isEmpty());
 	}
