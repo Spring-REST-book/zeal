@@ -1,27 +1,19 @@
 package com.dzone.albanoj2.zeal.rest.assembler;
 
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-
 import org.mockito.ArgumentMatcher;
 
 import com.dzone.albanoj2.zeal.domain.Comment;
 import com.dzone.albanoj2.zeal.rest.resource.CommentResource;
+import com.dzone.albanoj2.zeal.test.data.Dates;
 
-public class CommentResourceAssemblerTest extends AbstractResourceAssemblerTest<Comment, CommentResource> {
+public class CommentResourceAssemblerTest 
+	extends AbstractResourceAssemblerTest<Comment, CommentResource> {
 
 	@Override
 	protected Comment createPopulatedDomainObject(String id) {
-		return new Comment(id, "articleId" + id, date(), "bar" + id);
+		return new Comment(id, "articleId" + id, Dates.arbitrary(), "bar" + id);
 	}
 	
-	private static ZonedDateTime date() {
-		return LocalDateTime.of(2021, Month.MARCH, 30, 17, 41, 00)
-			.atZone(ZoneOffset.UTC);
-	}
-
 	@Override
 	protected ResourceAssembler<Comment, CommentResource> getAssembler() {
 		return new CommentResourceAssembler();

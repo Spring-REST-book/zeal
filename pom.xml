@@ -22,6 +22,7 @@
         <module>zeal-app</module>
         <module>zeal-rest</module>
         <module>zeal-main</module>
+        <module>zeal-test</module>
     </modules>
 
     <dependencyManagement>
@@ -44,6 +45,11 @@
             <dependency>
                 <groupId>com.dzone.albanoj2.zeal</groupId>
                 <artifactId>zeal-rest</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dzone.albanoj2.zeal</groupId>
+                <artifactId>zeal-test</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

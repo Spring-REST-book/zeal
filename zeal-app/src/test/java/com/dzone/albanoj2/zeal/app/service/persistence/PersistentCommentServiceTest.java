@@ -11,10 +11,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +24,7 @@ import com.dzone.albanoj2.zeal.app.service.error.CommentNotFoundException;
 import com.dzone.albanoj2.zeal.domain.Comment;
 import com.dzone.albanoj2.zeal.persistence.article.ArticleRepository;
 import com.dzone.albanoj2.zeal.persistence.comment.CommentRepository;
+import com.dzone.albanoj2.zeal.test.data.Dates;
 
 public class PersistentCommentServiceTest {
 
@@ -97,12 +94,7 @@ public class PersistentCommentServiceTest {
 	}
 
 	private static Comment comment(String id, String articleId) {
-		return new Comment(id, articleId, date(), "foo");
-	}
-
-	private static ZonedDateTime date() {
-		return LocalDateTime.of(2021, Month.MARCH, 26, 17, 41, 00)
-		    .atZone(ZoneOffset.UTC);
+		return new Comment(id, articleId, Dates.arbitrary(), "foo");
 	}
 
 	private void givenCommentsForArticle(String articleId, Comment... comments) {

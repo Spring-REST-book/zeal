@@ -9,20 +9,16 @@ import org.mockito.ArgumentMatcher;
 
 import com.dzone.albanoj2.zeal.domain.Article;
 import com.dzone.albanoj2.zeal.rest.resource.ArticleResource;
+import com.dzone.albanoj2.zeal.test.data.Dates;
 
 public class ArticleResourceAssemblerTest
 	extends AbstractResourceAssemblerTest<Article, ArticleResource> {
 
 	@Override
 	protected Article createPopulatedDomainObject(String id) {
-		return new Article(id, date(), "foo" + id, "bar" + id);
+		return new Article(id, Dates.arbitrary(), "foo" + id, "bar" + id);
 	}
 	
-	private static ZonedDateTime date() {
-		return LocalDateTime.of(2021, Month.MARCH, 30, 17, 41, 00)
-			.atZone(ZoneOffset.UTC);
-	}
-
 	@Override
 	protected ResourceAssembler<Article, ArticleResource> getAssembler() {
 		return new ArticleResourceAssembler();

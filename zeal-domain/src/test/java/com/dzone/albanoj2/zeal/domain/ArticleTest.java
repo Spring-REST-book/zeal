@@ -3,13 +3,12 @@ package com.dzone.albanoj2.zeal.domain;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 
 import org.junit.jupiter.api.Test;
+
+import com.dzone.albanoj2.zeal.test.data.Dates;
 
 public class ArticleTest {
 
@@ -17,7 +16,7 @@ public class ArticleTest {
 	public void givenValidData_whenConstruct_thenGettersReturnValueData() {
 		
 		String id = "12345";
-		ZonedDateTime creationDate = date();
+		ZonedDateTime creationDate = Dates.arbitrary();
 		String title = "foo";
 		String content = "bar";
 		
@@ -29,16 +28,11 @@ public class ArticleTest {
 		assertEquals(content, article.getContent());
 	}
 
-	private static ZonedDateTime date() {
-		return LocalDateTime.of(2021, Month.MARCH, 26, 17, 41, 00)
-		    .atZone(ZoneOffset.UTC);
-	}
-
 	@Test
 	public void givenValidData_whenSet_thenGettersReturnValueData() {
 		
 		String id = "12345";
-		ZonedDateTime originalCreationDate = date();
+		ZonedDateTime originalCreationDate = Dates.arbitrary();
 		ZonedDateTime updatedCreationDate = originalCreationDate.plus(1, ChronoUnit.MINUTES);
 		String updatedTitle = "updated title";
 		String updatedContent = "updated content";
@@ -68,7 +62,7 @@ public class ArticleTest {
 	public void givenNullTitle_whenConstruct_thenExceptionThrown() {
 		assertThrows(
 			NullPointerException.class,
-			() -> new Article("12345", date(), null, "bar")
+			() -> new Article("12345", Dates.arbitrary(), null, "bar")
 		);
 	}
 	
@@ -76,14 +70,14 @@ public class ArticleTest {
 	public void givenNullContent_whenConstruct_thenExceptionThrown() {
 		assertThrows(
 			NullPointerException.class,
-			() -> new Article("12345", date(), "foo", null)
+			() -> new Article("12345", Dates.arbitrary(), "foo", null)
 		);
 	}
 	
 	@Test
 	public void givenNullCreationDate_whenSetCreationDate_thenExceptionThrown() {
 		
-		Article article = new Article(date(), "foo", "bar");
+		Article article = new Article(Dates.arbitrary(), "foo", "bar");
 		
 		assertThrows(
 			NullPointerException.class,
@@ -94,7 +88,7 @@ public class ArticleTest {
 	@Test
 	public void givenNullTitle_whenSetTitle_thenExceptionThrown() {
 
-		Article article = new Article(date(), "foo", "bar");
+		Article article = new Article(Dates.arbitrary(), "foo", "bar");
 		
 		assertThrows(
 			NullPointerException.class,
@@ -105,7 +99,7 @@ public class ArticleTest {
 	@Test
 	public void givenNullContent_whenSetContent_thenExceptionThrown() {
 
-		Article article = new Article(date(), "foo", "bar");
+		Article article = new Article(Dates.arbitrary(), "foo", "bar");
 		
 		assertThrows(
 			NullPointerException.class,

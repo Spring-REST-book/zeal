@@ -3,13 +3,12 @@ package com.dzone.albanoj2.zeal.domain;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 
 import org.junit.jupiter.api.Test;
+
+import com.dzone.albanoj2.zeal.test.data.Dates;
 
 public class CommentTest {
 
@@ -18,7 +17,7 @@ public class CommentTest {
 		
 		String id = "12345";
 		String articleId = "09876";
-		ZonedDateTime creationDate = date();
+		ZonedDateTime creationDate = Dates.arbitrary();
 		String content = "bar";
 		
 		Comment comment = new Comment(id, articleId, creationDate, content);
@@ -29,17 +28,12 @@ public class CommentTest {
 		assertEquals(content, comment.getContent());
 	}
 
-	private static ZonedDateTime date() {
-		return LocalDateTime.of(2021, Month.MARCH, 26, 17, 41, 00)
-		    .atZone(ZoneOffset.UTC);
-	}
-
 	@Test
 	public void givenValidData_whenSet_thenGettersReturnValueData() {
 		
 		String id = "12345";
 		String updatedArticleId = "09876";
-		ZonedDateTime originalCreationDate = date();
+		ZonedDateTime originalCreationDate = Dates.arbitrary();
 		ZonedDateTime updatedCreationDate = originalCreationDate.plus(1, ChronoUnit.MINUTES);
 		String updatedContent = "updated content";
 		
@@ -60,7 +54,7 @@ public class CommentTest {
 	public void givenNullArticleId_whenConstruct_thenExceptionThrown() {
 		assertThrows(
 			NullPointerException.class,
-			() -> new Comment("12345", null, date(), "bar")
+			() -> new Comment("12345", null, Dates.arbitrary(), "bar")
 		);
 	}
 	
@@ -76,14 +70,14 @@ public class CommentTest {
 	public void givenNullContent_whenConstruct_thenExceptionThrown() {
 		assertThrows(
 			NullPointerException.class,
-			() -> new Comment("12345", "foo", date(), null)
+			() -> new Comment("12345", "foo", Dates.arbitrary(), null)
 		);
 	}
 	
 	@Test
 	public void givenNullArticleId_whenSetArticleId_thenExceptionThrown() {
 		
-		Comment comment = new Comment("55555", date(), "bar");
+		Comment comment = new Comment("55555", Dates.arbitrary(), "bar");
 		
 		assertThrows(
 			NullPointerException.class,
@@ -94,7 +88,7 @@ public class CommentTest {
 	@Test
 	public void givenNullCreationDate_whenSetCreationDate_thenExceptionThrown() {
 		
-		Comment comment = new Comment("55555", date(), "bar");
+		Comment comment = new Comment("55555", Dates.arbitrary(), "bar");
 		
 		assertThrows(
 			NullPointerException.class,
@@ -105,7 +99,7 @@ public class CommentTest {
 	@Test
 	public void givenNullContent_whenSetContent_thenExceptionThrown() {
 		
-		Comment comment = new Comment("55555", date(), "bar");
+		Comment comment = new Comment("55555", Dates.arbitrary(), "bar");
 		
 		assertThrows(
 			NullPointerException.class,
