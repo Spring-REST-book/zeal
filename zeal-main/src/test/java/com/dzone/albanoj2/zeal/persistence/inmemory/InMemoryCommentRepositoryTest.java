@@ -3,10 +3,6 @@ package com.dzone.albanoj2.zeal.persistence.inmemory;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.dzone.albanoj2.zeal.domain.Comment;
+import com.dzone.albanoj2.zeal.test.data.Dates;
 
 public class InMemoryCommentRepositoryTest {
 
@@ -37,7 +34,7 @@ public class InMemoryCommentRepositoryTest {
 	@Test
 	public void givenOneCommentSaved_whenFindAllByArticleId_thenOneCommentFound() {
 		
-		Comment comment = new Comment(null, "foo", date(1), "bar");
+		Comment comment = new Comment(null, "foo", Dates.arbitraryWithDay(1), "bar");
 		
 		Comment saved = repository.save(comment);
 		
@@ -47,17 +44,12 @@ public class InMemoryCommentRepositoryTest {
 		assertTrue(found.contains(comment));
 	}
 
-	private static ZonedDateTime date(int day) {
-		return LocalDateTime.of(2021, Month.APRIL, day, 17, 41, 00)
-		    .atZone(ZoneOffset.UTC);
-	}
-	
 	@Test
 	public void givenTwoCommentsSaved_whenFindAllByArticleId_thenTwoCommentsFound() {
 		
 		String articleId = "foo";
-		Comment comment1 = new Comment(null, articleId, date(1), "bar");
-		Comment comment2 = new Comment(null, articleId, date(2), "something");
+		Comment comment1 = new Comment(null, articleId, Dates.arbitraryWithDay(1), "bar");
+		Comment comment2 = new Comment(null, articleId, Dates.arbitraryWithDay(2), "something");
 		
 		repository.save(comment1);
 		repository.save(comment2);
@@ -72,8 +64,8 @@ public class InMemoryCommentRepositoryTest {
 	@Test
 	public void givenTwoCommentsWithDifferentArticleIdsSaved_whenFindAllByArticleId_thenOneCommentFound() {
 		
-		Comment matching = new Comment(null, "baz", date(2), "something");
-		Comment nonMatching = new Comment(null, "foo", date(1), "bar");
+		Comment matching = new Comment(null, "baz", Dates.arbitraryWithDay(2), "something");
+		Comment nonMatching = new Comment(null, "foo", Dates.arbitraryWithDay(1), "bar");
 
 		repository.save(nonMatching);
 		Comment savedMatching = repository.save(matching);
@@ -95,7 +87,7 @@ public class InMemoryCommentRepositoryTest {
 	@Test
 	public void givenOneMatchingCommentSaved_whenFindById_thenCommentFound() {
 		
-		Comment comment = new Comment(null, "foo", date(1), "bar");
+		Comment comment = new Comment(null, "foo", Dates.arbitraryWithDay(1), "bar");
 		
 		Comment saved = repository.save(comment);
 
@@ -108,7 +100,7 @@ public class InMemoryCommentRepositoryTest {
 	@Test
 	public void givenOneNonMatchingCommentSaved_whenFindById_thenCommentFound() {
 
-		Comment comment = new Comment(null, "foo", date(1), "bar");
+		Comment comment = new Comment(null, "foo", Dates.arbitraryWithDay(1), "bar");
 		
 		Comment saved = repository.save(comment);
 
@@ -120,8 +112,8 @@ public class InMemoryCommentRepositoryTest {
 	@Test
 	public void givenOneMatchingAndOneNonMatching_whenFindById_thenCommentFound() {
 
-		Comment nonMatching = new Comment(null, "foo", date(1), "bar");
-		Comment matching = new Comment(null, "baz", date(2), "something");
+		Comment nonMatching = new Comment(null, "foo", Dates.arbitraryWithDay(1), "bar");
+		Comment matching = new Comment(null, "baz", Dates.arbitraryWithDay(2), "something");
 		
 		repository.save(nonMatching);
 		Comment savedMatching = repository.save(matching);
@@ -135,7 +127,7 @@ public class InMemoryCommentRepositoryTest {
 	@Test
 	public void givenCommentHasNoId_whenSave_thenCommentCreated() {
 		
-		Comment comment = new Comment(null, "foo", date(1), "bar");
+		Comment comment = new Comment(null, "foo", Dates.arbitraryWithDay(1), "bar");
 		
 		Comment saved = repository.save(comment);
 
@@ -158,7 +150,7 @@ public class InMemoryCommentRepositoryTest {
 	@Test
 	public void givenCommentHasIdAndNoCommentExistsWithId_whenSave_thenCommentCreated() {
 		
-		Comment comment = new Comment(null, "foo", date(1), "bar");
+		Comment comment = new Comment(null, "foo", Dates.arbitraryWithDay(1), "bar");
 		
 		Comment saved = repository.save(comment);
 
@@ -171,8 +163,8 @@ public class InMemoryCommentRepositoryTest {
 	@Test
 	public void givenCommentHasIdAndCommentAlreadyExistsWithId_whenSave_thenCommentUpdated() {
 		
-		Comment existing = new Comment("someId", "foo", date(1), "bar");
-		Comment update = new Comment(existing.getId(), "baz", date(2), "something");
+		Comment existing = new Comment("someId", "foo", Dates.arbitraryWithDay(1), "bar");
+		Comment update = new Comment(existing.getId(), "baz", Dates.arbitraryWithDay(2), "something");
 		
 		Comment savedExisting = repository.save(existing);
 		repository.save(update);
@@ -198,7 +190,7 @@ public class InMemoryCommentRepositoryTest {
 	@Test
 	public void givenCommentExists_whenDeleteById_thenCommentDeleted() {
 		
-		Comment comment = new Comment(null, "foo", date(1), "bar");
+		Comment comment = new Comment(null, "foo", Dates.arbitraryWithDay(1), "bar");
 		
 		Comment saved = repository.save(comment);
 		
@@ -221,7 +213,7 @@ public class InMemoryCommentRepositoryTest {
 	public void givenArticleExists_whenDeleteAll_thenNoArticlesRemain() {
 		
 		String articleId = "foo";
-		Comment comment = new Comment(null, articleId, date(1), "bar");
+		Comment comment = new Comment(null, articleId, Dates.arbitraryWithDay(1), "bar");
 		
 		repository.save(comment);
 		

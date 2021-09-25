@@ -8,7 +8,11 @@ import java.time.ZonedDateTime;
 public class Dates {
 
 	public static ZonedDateTime arbitrary() {
-		return LocalDateTime.of(2021, Month.MARCH, 26, 17, 41, 00)
+		return arbitraryWithDay(26);
+	}
+
+	public static ZonedDateTime arbitraryWithDay(int day) {
+		return LocalDateTime.of(2021, Month.MARCH, day, 17, 41, 00)
 		    .atZone(ZoneOffset.UTC);
 	}
 }

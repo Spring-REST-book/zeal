@@ -4,10 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.dzone.albanoj2.zeal.domain.Article;
+import com.dzone.albanoj2.zeal.test.data.Dates;
 
 public class InMemoryArticleRepositoryTest {
 
@@ -36,7 +33,7 @@ public class InMemoryArticleRepositoryTest {
 	@Test
 	public void givenOneArticleSaved_whenFindAll_thenOneArticleFound() {
 		
-		Article article = new Article(null, date(1), "foo", "bar");
+		Article article = new Article(null, Dates.arbitraryWithDay(1), "foo", "bar");
 		
 		repository.save(article);
 		
@@ -46,16 +43,11 @@ public class InMemoryArticleRepositoryTest {
 		assertTrue(found.contains(article));
 	}
 
-	private static ZonedDateTime date(int day) {
-		return LocalDateTime.of(2021, Month.APRIL, day, 17, 41, 00)
-		    .atZone(ZoneOffset.UTC);
-	}
-	
 	@Test
 	public void givenTwoArticlesSaved_whenFindAll_thenTwoArticlesFound() {
 		
-		Article article1 = new Article(null, date(1), "foo", "bar");
-		Article article2 = new Article(null, date(2), "baz", "something");
+		Article article1 = new Article(null, Dates.arbitraryWithDay(1), "foo", "bar");
+		Article article2 = new Article(null, Dates.arbitraryWithDay(2), "baz", "something");
 		
 		repository.save(article1);
 		repository.save(article2);
@@ -78,7 +70,7 @@ public class InMemoryArticleRepositoryTest {
 	@Test
 	public void givenOneMatchingArticleSaved_whenFindById_thenArticleFound() {
 		
-		Article article = new Article(null, date(1), "foo", "bar");
+		Article article = new Article(null, Dates.arbitraryWithDay(1), "foo", "bar");
 		
 		Article saved = repository.save(article);
 
@@ -91,7 +83,7 @@ public class InMemoryArticleRepositoryTest {
 	@Test
 	public void givenOneNonMatchingArticleSaved_whenFindById_thenArticleFound() {
 
-		Article article = new Article(null, date(1), "foo", "bar");
+		Article article = new Article(null, Dates.arbitraryWithDay(1), "foo", "bar");
 		
 		Article saved = repository.save(article);
 
@@ -103,8 +95,8 @@ public class InMemoryArticleRepositoryTest {
 	@Test
 	public void givenOneMatchingAndOneNonMatching_whenFindById_thenArticleFound() {
 
-		Article nonMatching = new Article(null, date(1), "foo", "bar");
-		Article matching = new Article(null, date(2), "baz", "something");
+		Article nonMatching = new Article(null, Dates.arbitraryWithDay(1), "foo", "bar");
+		Article matching = new Article(null, Dates.arbitraryWithDay(2), "baz", "something");
 		
 		repository.save(nonMatching);
 		Article savedMatching = repository.save(matching);
@@ -118,7 +110,7 @@ public class InMemoryArticleRepositoryTest {
 	@Test
 	public void givenArticleHasNoId_whenSave_thenArticleCreated() {
 		
-		Article article = new Article(null, date(1), "foo", "bar");
+		Article article = new Article(null, Dates.arbitraryWithDay(1), "foo", "bar");
 		
 		Article saved = repository.save(article);
 
@@ -141,7 +133,7 @@ public class InMemoryArticleRepositoryTest {
 	@Test
 	public void givenArticleHasIdAndNoArticleExistsWithId_whenSave_thenArticleCreated() {
 		
-		Article article = new Article("someId", date(1), "foo", "bar");
+		Article article = new Article("someId", Dates.arbitraryWithDay(1), "foo", "bar");
 		
 		Article saved = repository.save(article);
 
@@ -154,8 +146,8 @@ public class InMemoryArticleRepositoryTest {
 	@Test
 	public void givenArticleHasIdAndArticleAlreadyExistsWithId_whenSave_thenArticleUpdated() {
 		
-		Article existing = new Article("someId", date(1), "foo", "bar");
-		Article update = new Article(existing.getId(), date(2), "foo", "bar");
+		Article existing = new Article("someId", Dates.arbitraryWithDay(1), "foo", "bar");
+		Article update = new Article(existing.getId(), Dates.arbitraryWithDay(2), "foo", "bar");
 		
 		Article savedExisting = repository.save(existing);
 		repository.save(update);
@@ -181,7 +173,7 @@ public class InMemoryArticleRepositoryTest {
 	@Test
 	public void givenArticleExists_whenDeleteById_thenArticleDeleted() {
 		
-		Article article = new Article(null, date(1), "foo", "bar");
+		Article article = new Article(null, Dates.arbitraryWithDay(1), "foo", "bar");
 		
 		Article saved = repository.save(article);
 		
@@ -203,7 +195,7 @@ public class InMemoryArticleRepositoryTest {
 	@Test
 	public void givenArticleExists_whenExists_thenTrueReturned() {
 		
-		Article article = new Article(null, date(1), "foo", "bar");
+		Article article = new Article(null, Dates.arbitraryWithDay(1), "foo", "bar");
 		
 		Article saved = repository.save(article);
 		
@@ -221,7 +213,7 @@ public class InMemoryArticleRepositoryTest {
 	@Test
 	public void givenArticleExists_whenDeleteAll_thenNoArticlesRemain() {
 		
-		Article article = new Article(null, date(1), "foo", "bar");
+		Article article = new Article(null, Dates.arbitraryWithDay(1), "foo", "bar");
 		
 		repository.save(article);
 		
