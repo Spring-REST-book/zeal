@@ -34,11 +34,25 @@ public class Article {
 	}
 
 	private String requireValidTitle(String title) {
-		return requireNonNull(title, "Title cannot be null.");
+		
+		requireNonNull(title, "Title cannot be null.");
+		
+		if (title.isBlank()) {
+			throw new IllegalArgumentException("Title cannot be blank.");
+		}
+		
+		return title;
 	}
 
 	private static String requireValidContent(String content) {
-		return requireNonNull(content, "Content cannot be null");
+		
+		requireNonNull(content, "Content cannot be null");
+		
+		if (content.isBlank()) {
+			throw new IllegalArgumentException("Content cannot be blank.");
+		}
+		
+		return content;
 	}
 
 	public String getId() {

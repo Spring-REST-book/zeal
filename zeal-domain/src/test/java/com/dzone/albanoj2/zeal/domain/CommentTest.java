@@ -106,4 +106,42 @@ public class CommentTest {
 			() -> comment.setContent(null)
 		);
 	}
+	
+	@Test
+	public void givenEmptyContent_whenConstruct_thenExceptionThrown() {
+		assertThrows(
+			IllegalArgumentException.class,
+			() -> new Comment("55555", Dates.arbitrary(), "")
+		);
+	}
+	
+	@Test
+	public void givenBlankContent_whenConstruct_thenExceptionThrown() {
+		assertThrows(
+			IllegalArgumentException.class,
+			() -> new Comment("55555", Dates.arbitrary(), " ")
+		);
+	}
+	
+	@Test
+	public void givenEmptyContent_whenSetContent_thenExceptionThrown() {
+
+		Comment comment = new Comment("55555", Dates.arbitrary(), "bar");
+		
+		assertThrows(
+			IllegalArgumentException.class,
+			() -> comment.setContent("")
+		);
+	}
+	
+	@Test
+	public void givenBlankContent_whenSetContent_thenExceptionThrown() {
+
+		Comment comment = new Comment("55555", Dates.arbitrary(), "bar");
+		
+		assertThrows(
+			IllegalArgumentException.class,
+			() -> comment.setContent(" ")
+		);
+	}
 }

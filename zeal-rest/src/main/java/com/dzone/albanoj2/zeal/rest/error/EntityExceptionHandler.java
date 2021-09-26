@@ -45,4 +45,19 @@ public class EntityExceptionHandler {
 
 		return new ResponseEntity<>(resource, HttpStatus.NOT_FOUND);
 	}
+	
+	@ExceptionHandler({
+		InvalidRequestDataException.class
+	})
+	public ResponseEntity<ErrorResource> handleInvalidRequestData(InvalidRequestDataException ex,
+		WebRequest request) {
+
+		ErrorResource resource = new ErrorResource();
+
+		resource.setTimestamp(timeUtility.currentTimestamp());
+		resource.setMessage("Invalid request data");
+		resource.setDetail(ex.getMessage());
+
+		return new ResponseEntity<>(resource, HttpStatus.BAD_REQUEST);
+	}
 }

@@ -2,6 +2,7 @@ package com.dzone.albanoj2.zeal.rest.resource.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.dzone.albanoj2.zeal.domain.Comment;
+import com.dzone.albanoj2.zeal.rest.error.InvalidRequestDataException;
 import com.dzone.albanoj2.zeal.rest.resource.CommentSaveRequestResource;
 import com.dzone.albanoj2.zeal.rest.util.TimeUtility;
 import com.dzone.albanoj2.zeal.test.data.Dates;
@@ -63,5 +65,124 @@ public class CommentSaveRequestResourceMapperTest {
 		assertEquals(resource.getArticleId(), mapped.getArticleId());
 		assertEquals(expectedDate, mapped.getCreationDate());
 		assertEquals(resource.getContent(), mapped.getContent());
+	}
+	
+	@Test
+	public void givenNullArticleId_whenTo_thenExceptionThrown() {
+
+		CommentSaveRequestResource resource = new CommentSaveRequestResource(null, "foo");
+		
+		assertThrows(
+			InvalidRequestDataException.class,
+			() -> mapper.to(resource)
+		);
+	}
+	
+	@Test
+	public void givenNullContent_whenTo_thenExceptionThrown() {
+		
+		CommentSaveRequestResource resource = new CommentSaveRequestResource("123", null);
+		
+		assertThrows(
+			InvalidRequestDataException.class,
+			() -> mapper.to(resource)
+		);
+	}
+	
+	@Test
+	public void givenEmptyContent_whenTo_thenExceptionThrown() {
+		
+		CommentSaveRequestResource resource = new CommentSaveRequestResource("123", "");
+		
+		assertThrows(
+			InvalidRequestDataException.class,
+			() -> mapper.to(resource)
+		);
+	}
+	
+	@Test
+	public void givenBlankContent_whenTo_thenExceptionThrown() {
+		
+		CommentSaveRequestResource resource = new CommentSaveRequestResource("123", " ");
+		
+		assertThrows(
+			InvalidRequestDataException.class,
+			() -> mapper.to(resource)
+		);
+	}
+	
+	@Test
+	public void givenNullArticleId_whenToWithId_thenExceptionThrown() {
+
+		String id = "someId";
+		CommentSaveRequestResource resource = new CommentSaveRequestResource(null, "foo");
+		
+		assertThrows(
+			InvalidRequestDataException.class,
+			() -> mapper.to(id, resource)
+		);
+	}
+	
+	@Test
+	public void givenNullContent_whenToWithId_thenExceptionThrown() {
+
+		String id = "someId";
+		CommentSaveRequestResource resource = new CommentSaveRequestResource("123", null);
+		
+		assertThrows(
+			InvalidRequestDataException.class,
+			() -> mapper.to(id, resource)
+		);
+	}
+	
+	@Test
+	public void givenEmptyContent_whenToWithId_thenExceptionThrown() {
+
+		String id = "someId";
+		CommentSaveRequestResource resource = new CommentSaveRequestResource("123", "");
+		
+		assertThrows(
+			InvalidRequestDataException.class,
+			() -> mapper.to(id, resource)
+		);
+	}
+	
+	@Test
+	public void givenBlankContent_whenToWithId_thenExceptionThrown() {
+		
+		String id = "someId";
+		CommentSaveRequestResource resource = new CommentSaveRequestResource("123", " ");
+		
+		assertThrows(
+			InvalidRequestDataException.class,
+			() -> mapper.to(id, resource)
+		);
+	}
+	
+	@Test
+	public void givenNullResource_whenTo_thenExceptionThrown() {
+		assertThrows(
+			NullPointerException.class,
+			() -> mapper.to(null)
+		);
+	}
+	
+	@Test
+	public void givenNullId_whenToWithId_thenExceptionThrown() {
+		
+		CommentSaveRequestResource resource = new CommentSaveRequestResource("123", "foo");
+		
+		assertThrows(
+			NullPointerException.class,
+			() -> mapper.to(null, resource)
+		);
+	}
+	
+	@Test
+	public void givenNullResource_whenToWithId_thenExceptionThrown() {
+		assertThrows(
+			NullPointerException.class,
+			() -> mapper.to("foo", null)
+		);
 	}
 }

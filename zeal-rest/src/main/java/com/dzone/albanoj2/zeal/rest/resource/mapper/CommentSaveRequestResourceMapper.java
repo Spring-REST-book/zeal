@@ -1,9 +1,12 @@
 package com.dzone.albanoj2.zeal.rest.resource.mapper;
 
+import static java.util.Objects.requireNonNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.dzone.albanoj2.zeal.domain.Comment;
+import com.dzone.albanoj2.zeal.rest.error.InvalidRequestDataException;
 import com.dzone.albanoj2.zeal.rest.resource.CommentSaveRequestResource;
 import com.dzone.albanoj2.zeal.rest.util.TimeUtility;
 
@@ -28,16 +31,26 @@ public class CommentSaveRequestResourceMapper
 
 	@Override
 	public Comment to(CommentSaveRequestResource resource) {
-		return new Comment(
-			resource.getArticleId(),
-			timeUtility.now(),
-			resource.getContent()
-		);
+		
+		requireNonNull(resource, "Resource cannot be null.");
+		
+		try {
+			return new Comment(
+				resource.getArticleId(),
+				timeUtility.now(),
+				resource.getContent()
+			);
+		}
+		catch (NullPointerException | IllegalArgumentException e) {
+			throw new InvalidRequestDataException(e);
+		}
 	}
 
 	@Override
 	public Comment to(String id, CommentSaveRequestResource resource) {
 
+		requireNonNull(id, "ID cannot be null.");
+		
 		Comment comment = to(resource);
 
 		comment.setId(id);

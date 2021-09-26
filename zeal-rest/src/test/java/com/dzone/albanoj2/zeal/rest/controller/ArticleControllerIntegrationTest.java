@@ -451,4 +451,205 @@ public class ArticleControllerIntegrationTest {
 			isWithinSeconds(10).matches(comment.getCreationEpoch()) &&
 			request.getContent().equals(comment.getContent());
 	}
+	
+	@Test
+	public void givenNullTitle_whenCreate_thenBadRequestReturned() throws Exception {
+		
+		ArticleSaveRequestResource request = new ArticleSaveRequestResource(null, "bar");
+		
+		mockMvc.perform(post("/article")
+				.content(toJson(request))
+				.contentType(MediaType.APPLICATION_JSON)
+			)
+			.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void givenNullContent_whenCreate_thenBadRequestReturned() throws Exception {
+		
+		ArticleSaveRequestResource request = new ArticleSaveRequestResource("foo", null);
+		
+		mockMvc.perform(post("/article")
+				.content(toJson(request))
+				.contentType(MediaType.APPLICATION_JSON)
+			)
+			.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void givenEmptyTitle_whenCreate_thenBadRequestReturned() throws Exception {
+		
+		ArticleSaveRequestResource request = new ArticleSaveRequestResource("", "bar");
+		
+		mockMvc.perform(post("/article")
+				.content(toJson(request))
+				.contentType(MediaType.APPLICATION_JSON)
+			)
+			.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void givenEmptyContent_whenCreate_thenBadRequestReturned() throws Exception {
+		
+		ArticleSaveRequestResource request = new ArticleSaveRequestResource("foo", "");
+		
+		mockMvc.perform(post("/article")
+				.content(toJson(request))
+				.contentType(MediaType.APPLICATION_JSON)
+			)
+			.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void givenBlankTitle_whenCreate_thenBadRequestReturned() throws Exception {
+		
+		ArticleSaveRequestResource request = new ArticleSaveRequestResource(" ", "bar");
+		
+		mockMvc.perform(post("/article")
+				.content(toJson(request))
+				.contentType(MediaType.APPLICATION_JSON)
+			)
+			.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void givenBlankContent_whenCreate_thenBadRequestReturned() throws Exception {
+		
+		ArticleSaveRequestResource request = new ArticleSaveRequestResource("foo", " ");
+		
+		mockMvc.perform(post("/article")
+				.content(toJson(request))
+				.contentType(MediaType.APPLICATION_JSON)
+			)
+			.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void givenNullTitle_whenSave_thenBadRequestReturned() throws Exception {
+		
+		String id = "123";
+		ArticleSaveRequestResource request = new ArticleSaveRequestResource(null, "bar");
+		
+		mockMvc.perform(put("/article/{id}", id)
+				.content(toJson(request))
+				.contentType(MediaType.APPLICATION_JSON)
+			)
+			.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void givenNullContent_whenSave_thenBadRequestReturned() throws Exception {
+		
+		String id = "123";
+		ArticleSaveRequestResource request = new ArticleSaveRequestResource("foo", null);
+		
+		mockMvc.perform(put("/article/{id}", id)
+				.content(toJson(request))
+				.contentType(MediaType.APPLICATION_JSON)
+			)
+			.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void givenEmptyTitle_whenSave_thenBadRequestReturned() throws Exception {
+		
+		String id = "123";
+		ArticleSaveRequestResource request = new ArticleSaveRequestResource("", "bar");
+		
+		mockMvc.perform(put("/article/{id}", id)
+				.content(toJson(request))
+				.contentType(MediaType.APPLICATION_JSON)
+			)
+			.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void givenEmptyContent_whenSave_thenBadRequestReturned() throws Exception {
+		
+		String id = "123";
+		ArticleSaveRequestResource request = new ArticleSaveRequestResource("foo", "");
+		
+		mockMvc.perform(put("/article/{id}", id)
+				.content(toJson(request))
+				.contentType(MediaType.APPLICATION_JSON)
+			)
+			.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void givenBlankTitle_whenSave_thenBadRequestReturned() throws Exception {
+		
+		String id = "123";
+		ArticleSaveRequestResource request = new ArticleSaveRequestResource(" ", "bar");
+		
+		mockMvc.perform(put("/article/{id}", id)
+				.content(toJson(request))
+				.contentType(MediaType.APPLICATION_JSON)
+			)
+			.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void givenBlankContent_whenSave_thenBadRequestReturned() throws Exception {
+		
+		String id = "123";
+		ArticleSaveRequestResource request = new ArticleSaveRequestResource("foo", " ");
+		
+		mockMvc.perform(put("/article/{id}", id)
+				.content(toJson(request))
+				.contentType(MediaType.APPLICATION_JSON)
+			)
+			.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void givenNullArticleId_whenPostComment_thenBadRequestReturned() throws Exception {
+		
+		CommentSaveRequestResource request = new CommentSaveRequestResource(null, "foo");
+		
+		mockMvc.perform(post("/article/{id}/comment", "1")
+				.content(toJson(request))
+				.contentType(MediaType.APPLICATION_JSON)
+			)
+			.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void givenNullContent_whenPostComment_thenBadRequestReturned() throws Exception {
+		
+		String articleId = "1";
+		CommentSaveRequestResource request = new CommentSaveRequestResource(articleId, null);
+		
+		mockMvc.perform(post("/article/{id}/comment", articleId)
+				.content(toJson(request))
+				.contentType(MediaType.APPLICATION_JSON)
+			)
+			.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void givenEmptyContent_whenPostComment_thenBadRequestReturned() throws Exception {
+		
+		String articleId = "1";
+		CommentSaveRequestResource request = new CommentSaveRequestResource(articleId, "");
+		
+		mockMvc.perform(post("/article/{id}/comment", articleId)
+				.content(toJson(request))
+				.contentType(MediaType.APPLICATION_JSON)
+			)
+			.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void givenBlankContent_whenPostComment_thenBadRequestReturned() throws Exception {
+		
+		String articleId = "1";
+		CommentSaveRequestResource request = new CommentSaveRequestResource(articleId, " ");
+		
+		mockMvc.perform(post("/article/{id}/comment", articleId)
+				.content(toJson(request))
+				.contentType(MediaType.APPLICATION_JSON)
+			)
+			.andExpect(status().isBadRequest());
+	}
 }

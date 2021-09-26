@@ -211,4 +211,56 @@ public class CommentControllerIntegrationTest {
 	private void assertDeleted(String id) {
 		verify(service, times(1)).deleteById(eq(id));
 	}
+	
+	@Test
+	public void givenNullArticleId_whenSave_thenBadRequestReturned() throws Exception {
+		
+		String id = "123";
+		CommentSaveRequestResource request = new CommentSaveRequestResource(null, "bar");
+		
+		mockMvc.perform(put("/comment/{id}", id)
+				.content(toJson(request))
+				.contentType(MediaType.APPLICATION_JSON)
+			)
+			.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void givenNullContent_whenSave_thenBadRequestReturned() throws Exception {
+		
+		String id = "123";
+		CommentSaveRequestResource request = new CommentSaveRequestResource("foo", null);
+		
+		mockMvc.perform(put("/comment/{id}", id)
+				.content(toJson(request))
+				.contentType(MediaType.APPLICATION_JSON)
+			)
+			.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void givenEmptyContent_whenSave_thenBadRequestReturned() throws Exception {
+		
+		String id = "123";
+		CommentSaveRequestResource request = new CommentSaveRequestResource("foo", "");
+		
+		mockMvc.perform(put("/comment/{id}", id)
+				.content(toJson(request))
+				.contentType(MediaType.APPLICATION_JSON)
+			)
+			.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void givenBlankContent_whenSave_thenBadRequestReturned() throws Exception {
+		
+		String id = "123";
+		CommentSaveRequestResource request = new CommentSaveRequestResource("foo", " ");
+		
+		mockMvc.perform(put("/comment/{id}", id)
+				.content(toJson(request))
+				.contentType(MediaType.APPLICATION_JSON)
+			)
+			.andExpect(status().isBadRequest());
+	}
 }

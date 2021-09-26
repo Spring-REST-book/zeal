@@ -38,7 +38,14 @@ public class Comment {
 	}
 
 	private static String requireValidContent(String content) {
-		return requireNonNull(content, "Content cannot be null.");
+		
+		requireNonNull(content, "Content cannot be null.");
+		
+		if (content.isBlank()) {
+			throw new IllegalArgumentException("Content cannot be blank.");
+		}
+		
+		return content;
 	}
 
 	public String getId() {

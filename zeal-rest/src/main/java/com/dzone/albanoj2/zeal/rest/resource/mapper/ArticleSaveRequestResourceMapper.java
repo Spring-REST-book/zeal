@@ -1,9 +1,12 @@
 package com.dzone.albanoj2.zeal.rest.resource.mapper;
 
+import static java.util.Objects.requireNonNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.dzone.albanoj2.zeal.domain.Article;
+import com.dzone.albanoj2.zeal.rest.error.InvalidRequestDataException;
 import com.dzone.albanoj2.zeal.rest.resource.ArticleSaveRequestResource;
 import com.dzone.albanoj2.zeal.rest.util.TimeUtility;
 
@@ -28,15 +31,25 @@ public class ArticleSaveRequestResourceMapper
 
 	@Override
 	public Article to(ArticleSaveRequestResource resource) {
-		return new Article(
-			timeUtility.now(),
-			resource.getTitle(),
-			resource.getContent()
-		);
+		
+		requireNonNull(resource, "Resource cannot be null.");
+		
+		try {
+			return new Article(
+				timeUtility.now(),
+				resource.getTitle(),
+				resource.getContent()
+			);
+		}
+		catch (NullPointerException | IllegalArgumentException e) {
+			throw new InvalidRequestDataException(e);
+		}
 	}
 
 	@Override
 	public Article to(String id, ArticleSaveRequestResource resource) {
+		
+		requireNonNull(id, "ID cannot be null.");
 
 		Article article = to(resource);
 

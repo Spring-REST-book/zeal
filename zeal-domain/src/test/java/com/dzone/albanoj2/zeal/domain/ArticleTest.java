@@ -106,4 +106,80 @@ public class ArticleTest {
 			() -> article.setContent(null)
 		);
 	}
+	
+	@Test
+	public void givenEmptyTitle_whenConstruct_thenExceptionThrown() {
+		assertThrows(
+			IllegalArgumentException.class,
+			() -> new Article(Dates.arbitrary(), "", "foo")
+		);
+	}
+	
+	@Test
+	public void givenEmptyContent_whenConstruct_thenExceptionThrown() {
+		assertThrows(
+			IllegalArgumentException.class,
+			() -> new Article(Dates.arbitrary(), "foo", "")
+		);
+	}
+	
+	@Test
+	public void givenBlankTitle_whenConstruct_thenExceptionThrown() {
+		assertThrows(
+			IllegalArgumentException.class,
+			() -> new Article(Dates.arbitrary(), " ", "foo")
+		);
+	}
+	
+	@Test
+	public void givenBlankContent_whenConstruct_thenExceptionThrown() {
+		assertThrows(
+			IllegalArgumentException.class,
+			() -> new Article(Dates.arbitrary(), "foo", " ")
+		);
+	}
+	
+	@Test
+	public void givenEmptyTitle_whenSetTitle_thenExceptionThrown() {
+
+		Article article = new Article(Dates.arbitrary(), "foo", "bar");
+		
+		assertThrows(
+			IllegalArgumentException.class,
+			() -> article.setTitle("")
+		);
+	}
+	
+	@Test
+	public void givenEmptyContent_whenSetContent_thenExceptionThrown() {
+
+		Article article = new Article(Dates.arbitrary(), "foo", "bar");
+		
+		assertThrows(
+			IllegalArgumentException.class,
+			() -> article.setContent("")
+		);
+	}
+	
+	@Test
+	public void givenBlankTitle_whenSetTitle_thenExceptionThrown() {
+
+		Article article = new Article(Dates.arbitrary(), "foo", "bar");
+		
+		assertThrows(
+			IllegalArgumentException.class,
+			() -> article.setTitle(" ")
+		);
+	}
+	
+	@Test
+	public void givenBlankContent_whenSetContent_thenExceptionThrown() {
+
+		Article article = new Article(Dates.arbitrary(), "foo", "bar");
+		
+		assertThrows(
+			IllegalArgumentException.class,
+			() -> article.setContent(" ")
+		);
+	}
 }
