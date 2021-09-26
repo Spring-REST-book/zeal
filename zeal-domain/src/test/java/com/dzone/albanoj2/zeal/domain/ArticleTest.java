@@ -51,6 +51,16 @@ public class ArticleTest {
 	}
 	
 	@Test
+	public void givenValidCreationDate_whenGetCreationEpoch_thenEpochIsZero() {
+		
+		long epoch = 1000;
+		ZonedDateTime creationDate = Dates.fromEpochMillis(epoch);
+		Article article = new Article(null, creationDate, "foo", "bar");
+		
+		assertEquals(epoch, article.getCreationEpoch());
+	}
+	
+	@Test
 	public void givenNullCreationDate_whenConstruct_thenExceptionThrown() {
 		assertThrows(
 			NullPointerException.class,

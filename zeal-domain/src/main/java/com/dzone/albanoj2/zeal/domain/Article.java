@@ -73,13 +73,7 @@ public class Article {
 	}
 
 	public long getCreationEpoch() {
-		
-		if (getCreationDate() == null) {
-			return 0;
-		}
-		else {
-			return getCreationDate().toInstant().toEpochMilli();
-		}
+		return getCreationDate().toInstant().toEpochMilli();
 	}
 
 	public String getTitle() {

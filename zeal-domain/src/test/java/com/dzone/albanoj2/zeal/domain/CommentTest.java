@@ -49,6 +49,16 @@ public class CommentTest {
 		assertEquals(updatedCreationDate, comment.getCreationDate());
 		assertEquals(updatedContent, comment.getContent());
 	}
+
+	@Test
+	public void givenValidCreationDate_whenGetCreationEpoch_thenEpochIsZero() {
+		
+		long epoch = 1000;
+		ZonedDateTime creationDate = Dates.fromEpochMillis(epoch);
+		Comment comment = new Comment("55555", creationDate, "foo");
+		
+		assertEquals(epoch, comment.getCreationEpoch());
+	}
 	
 	@Test
 	public void givenNullArticleId_whenConstruct_thenExceptionThrown() {
