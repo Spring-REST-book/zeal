@@ -73,4 +73,24 @@ public class EntityExceptionHandlerTest {
 		assertPopulated(errorResource.getMessage());
 		assertPopulated(errorResource.getDetail());
 	}
+	
+	@Test
+	public void givenValidInvalidRequestDataException_whenHandleInvalidRequestData_thenCorrectResourceReturned() {
+
+		String message = "some message";
+		String timestamp = "2021-04-01T19:40:26+0000";
+		NullPointerException npe = new NullPointerException(message);
+		InvalidRequestDataException ex = new InvalidRequestDataException(npe);
+		WebRequest request = mock(WebRequest.class);
+		
+		givenCurrentTimestampIs(timestamp);
+		
+		ResponseEntity<ErrorResource> error = handler.handleInvalidRequestData(ex, request);
+		ErrorResource errorResource = error.getBody();
+		
+		assertEquals(HttpStatus.BAD_REQUEST, error.getStatusCode());
+		assertEquals(timestamp, errorResource.getTimestamp());
+		assertPopulated(errorResource.getMessage());
+		assertEquals(message, errorResource.getDetail());
+	}
 }

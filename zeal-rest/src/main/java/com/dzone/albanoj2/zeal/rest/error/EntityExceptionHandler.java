@@ -56,7 +56,7 @@ public class EntityExceptionHandler {
 
 		resource.setTimestamp(timeUtility.currentTimestamp());
 		resource.setMessage("Invalid request data");
-		resource.setDetail(ex.getMessage());
+		resource.setDetail(ex.getCause().getMessage());
 
 		return new ResponseEntity<>(resource, HttpStatus.BAD_REQUEST);
 	}
